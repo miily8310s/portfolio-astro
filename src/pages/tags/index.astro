@@ -9,8 +9,7 @@ const pageTitle = "All Tags";
 ---
 <BaseLayout pageTitle={pageTitle}>
   <Container>
-    <h1 class="text-3xl font-bold">All Tags</h1>
-    <ul class="tags">{tags.map((tag) => <li class="text-gray-600">
+    <ul class="tags">{tags.map((tag) => <li class="text-gray-600 dark:text-gray-500">
       <a href={`/tags/${tag}`}>#{tag}</li></a>)}</ul>
   </Container>
 </BaseLayout>
