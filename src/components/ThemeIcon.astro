@@ -19,23 +19,30 @@
 </style>
 
 <script is:inline>
-  const theme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme');
+  document.addEventListener('astro:page-load', () => {
+    const theme = (() => {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+        return localStorage.getItem('theme');
+      }
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
+      return 'light';
+    })();
+  
+    if (theme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
     }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  })();
+  
+    window.localStorage.setItem('theme', theme);
+  })
+</script>
 
-  if (theme === 'light') {
-    document.documentElement.classList.remove('dark');
-  } else {
-    document.documentElement.classList.add('dark');
-  }
+<!-- @see https://docs.astro.build/en/tutorials/add-view-transitions/ -->
 
-  window.localStorage.setItem('theme', theme);
+<script>
   const handleToggleClick = () => {
     const element = document.documentElement;
     element.classList.toggle('dark');
@@ -45,7 +52,7 @@
   };
 
   const toogle = () => {
-    document.getElementById('themeToggle').addEventListener('click', handleToggleClick);
+    document.getElementById('themeToggle')?.addEventListener('click', handleToggleClick);
   };
 
   toogle();

@@ -1,8 +1,8 @@
 ---
-// import '../styles/global.css';
 import Header from "../components/Header.astro";
 import Footer from '../components/Footer.astro';
 import { SEO } from "astro-seo"
+import { ViewTransitions } from "astro:transitions";
 
 const { pageTitle } = Astro.props
 const displayTitle = pageTitle ? `${pageTitle} | miruoo's Blog` : `miruoo's Blog`
@@ -20,14 +20,11 @@ const displayTitle = pageTitle ? `${pageTitle} | miruoo's Blog` : `miruoo's Blog
 		<!--  FIXME: configファイルへsiteオプション追加 -->
 		<!-- <SEO title={displayTitle} description="miruoo's Blog is Blog site about Web/Mobile Development tips" canonical={canonicalURL} /> -->
 		<SEO title={displayTitle} description="miruoo's Blog is Blog site about Web/Mobile Development tips" />
+		<ViewTransitions />
 	</head>
 	<body class="bg-white dark:bg-zinc-900/95">
 		<Header />
-		<!-- <h1>{pageTitle}</h1> -->
-    <slot />
+		<slot />
 		<Footer />
-		<!-- <script>
-			import "../scripts/menu.js";
-		</script> -->
 	</body>
 </html>
