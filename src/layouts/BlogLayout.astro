@@ -12,12 +12,16 @@ const { title, pubDate, image, tags } = Astro.props;
 <BaseLayout pageTitle={title}>
   <Container>
     <article>
-      <div class="mb-8 block rounded-lg overflow-hidden">
-        <figure class="w-auto h-auto md:[480px] object-cover">
-          <Image src={image.url} alt={image.alt} width={960} height={480} decoding='async' loading='lazy'
-          class='transition duration-300 ease-in-out' />
-        </figure>
-      </div>
+      {
+        image && (
+          <div class="mb-8 block rounded-lg overflow-hidden">
+            <figure class="w-auto h-auto md:[480px] object-cover">
+              <Image src={image.url} alt={image.alt} width={960} height={480} decoding='async' loading='lazy'
+              class='transition duration-300 ease-in-out' />
+            </figure>
+          </div>
+        )
+      }
       <div class="md:col-10 text-center mb-12">
         <h1 class="text-3xl lg:text-4xl font-bold dark:text-white">{title}</h1>
         <div class="mt-4 flex flex-wrap items-center justify-center text-zinc-800">
@@ -29,7 +33,7 @@ const { title, pubDate, image, tags } = Astro.props;
           </div>
           <div class="w-full md:w-auto flex flex-wrap gap-3 justify-center">
             {tags.map((tag) => (
-              <span class="text-gray-500 dark:text-gray-200">#{tag}</span>
+              <span class="text-gray-500 dark:text-gray-200"><a href={`/tags/${tag}`}>#{tag}</a></span>
             ))}
           </div>
         </div>

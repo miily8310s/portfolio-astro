@@ -6,7 +6,7 @@ import ThemeIcon from "./ThemeIcon.astro";
     <header role="banner">
       <a href="/" class="text-lg font-bold text-slate-800 dark:text-zinc-200">miruoo's blog</a>
     </header>
-    <ul class="flex items-center gap-x-3 ml-auto" role="menubar">
+    <ul class="flex gap-x-3 md:ml-auto" role="menubar">
       <li role="menuitem">
         <a href="/blog/" class="text-gray-600 dark:text-zinc-200 hover:text-gray-900">Blog</a>
       </li>
@@ -14,8 +14,8 @@ import ThemeIcon from "./ThemeIcon.astro";
         <a href="/tags/" class="text-gray-600 dark:text-zinc-200 hover:text-gray-900">Tags</a>
       </li>
       <li role="menuitem">
+        <ThemeIcon />
       </li>
     </ul>
-    <ThemeIcon />
   </nav>
 </div>
