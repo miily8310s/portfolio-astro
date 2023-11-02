@@ -1,13 +1,16 @@
 ---
-// import '../styles/global.css';
 import Header from "../components/Header.astro";
 import Footer from '../components/Footer.astro';
 import { SEO } from "astro-seo"
+import { ViewTransitions } from "astro:transitions";
 
 const { pageTitle } = Astro.props
 const displayTitle = pageTitle ? `${pageTitle} | miruoo's Blog` : `miruoo's Blog`
-// FIXME: configファイルへsiteオプション追加
-// const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const resolvedImageWithDomain = new URL(
+  "/miruoo's_blog.png",
+  Astro.site
+).toString();
 ---
 
 <html lang="ja">
@@ -16,18 +19,29 @@ const displayTitle = pageTitle ? `${pageTitle} | miruoo's Blog` : `miruoo's Blog
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<!-- TODO: OGP画像 -->
-		<!--  FIXME: configファイルへsiteオプション追加 -->
-		<!-- <SEO title={displayTitle} description="miruoo's Blog is Blog site about Web/Mobile Development tips" canonical={canonicalURL} /> -->
-		<SEO title={displayTitle} description="miruoo's Blog is Blog site about Web/Mobile Development tips" />
+		<SEO 
+		  title={displayTitle}
+			description="miruoo's Blog is Blog site about Web/Mobile Development tips"
+			canonical={canonicalURL}
+			openGraph={
+			  {
+			  	basic: {
+			  		url: canonicalURL,
+            type: "website",
+            title: `miruoo's Blog - Web/Mobile Development tips`,
+			  		image: resolvedImageWithDomain
+			  	},
+			  	image: {
+			  		alt: "miruoo's Blog Homepage Screenshot",
+			  	}
+			  }
+			}
+		 />
+		<ViewTransitions />
 	</head>
-	<body>
+	<body class="bg-white dark:bg-zinc-900/95">
 		<Header />
-		<!-- <h1>{pageTitle}</h1> -->
-    <slot />
+		<slot />
 		<Footer />
-		<!-- <script>
-			import "../scripts/menu.js";
-		</script> -->
 	</body>
 </html>
