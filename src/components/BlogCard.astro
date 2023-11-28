@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import FormattedDate from '../components/FormattedDate.astro';
 
 interface Props {
   post: CollectionEntry<'blog'>
@@ -8,9 +9,10 @@ interface Props {
 const { post } = Astro.props
 ---
 
-<article class="cursor dark:text-white border-dotted border-b-2 border-sky-400">
+<article class="cursor dark:text-white border-dotted pb-2 border-b-2 border-sky-400 hover:opacity-70">
   <a href={`/blog/${post.slug}`}>
-    <h1 class="font-semibold text-3xl leading-6">{post.data.title}</h1>
-    <p class="text-xl leading-6 my-2">{post.data.description}</p>
+    <p class="font-semibold text-sm text-gray-500"><FormattedDate date={post.data.pubDate} /></p>
+    <h1 class="text-gray-900 dark:text-gray-200 font-semibold text-lg leading-tight">{post.data.title}</h1>
+    <p class="text-gray-700 dark:text-gray-200 leading-relaxed">{post.data.description}</p>
   </a>
 </article>
