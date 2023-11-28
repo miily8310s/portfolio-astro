@@ -1,0 +1,127 @@
+---
+title: "cocoapodsのインストールで「ERROR: Failed to build gem native extension.」が出た場合の対処法メモ"
+author: miruoo
+description: "Flutterの環境構築時にcocoapodsのインストールで躓いたのでメモ。"
+image:
+  url: "https://source.unsplash.com/selective-focus-photo-of-red-gemstone-VKLJ-BJlszE/960x480"
+  alt: "image of 'red gemstone'."
+pubDate: 2023-11-28
+tags: ["cocoapods", "flutter"]
+---
+
+Flutter の環境構築時に cocoapods のインストールで引っかかったので備忘録として残しておきます。
+
+## 事象
+
+以下を叩いたところエラーが表示された。
+
+```shell
+$ sudo gem install cocoapods
+```
+
+## 動作環境
+
+Macbook Pro M1 2020 / macOS 13.6
+
+## まず Ruby のバージョンをチェックする
+
+cocoapods は Ruby 製のライブラリであり gem コマンドを通してインストールすることになる。
+そのため、Ruby のインストールが必須になる。
+
+Ruby のバージョンは以下で確認できる。
+
+```shell
+$ ruby -v
+```
+
+また which コマンドでどこのパスの Ruby を見られているかもチェックしておく。
+
+```shell
+$ which ruby
+/usr/bin/ruby
+```
+
+バージョンが 2.x であり、このパスが表示されると Mac に最初から入っているバージョンが使われている。この最初から入っているバージョンは古いことが多いため、今回のようなトラブルを防ぐためにも最新バージョンの Ruby を使うことが推奨される。
+
+## rbenv を使って Ruby のバージョンを上げて再度トライ
+
+今回は[rbenv](https://github.com/rbenv/rbenv)を使って対応した。これを入れると Ruby のバージョン切り替えが手軽に出来るようになるので業務で使う場合は入れておいたほうがいい。
+
+まず Homebrew 経由で以下を叩いてインストールします。（最新のバージョンが取得できるように`brew update`は事前に済ませること！）
+
+```shell
+$ brew install rbenv ruby-build
+```
+
+インストールが終わったら以下コマンドで次どうするべきか教えてくれるので叩きます。
+
+```shell
+$ rbenv init
+# Load rbenv automatically by appending
+# the following to ~/.zshrc:
+
+eval "$(rbenv init - zsh)"
+```
+
+`~/.zshrc`ファイルに以下の行を追記してねと出てくるので、vi コマンドなどで案内された文をファイルの最後に追記します。
+
+```shell
+$ vi ~/.zshrc
+$ source ~/.zshrc
+```
+
+そしてこれで保存。
+
+```shell
+$ source ~/.zshrc
+```
+
+ターミナルを開け直すと Ruby のバージョンが rbenv で入れたものに変わっているはずです。
+
+```shell
+$ ruby -v
+ruby 3.2.2 (2023-03-30 revision e51014f9c0) [arm64-darwin22]
+```
+
+もう一度 cocoapods をインストールすると成功！
+
+```shell
+$ sudo gem install cocoapods
+```
+
+## （余談） Flutter 関係のトラブル
+
+cocoapods のインストール後、こちらの環境だと今度は Flutter のパスが通らなくなったのでこちらも残しておきます。
+
+```shell
+$ flutter doctor
+zsh: command not found: flutter
+```
+
+rbenv と同じ形で[公式](https://docs.flutter.dev/get-started/install/macos#get-sdk)でダウンロードした Flutter フォルダの配置場所からパスを通してあげれば OK。
+例えばドキュメントフォルダ配下の`Development`に設置した場合はこんな感じになる。
+
+```shell
+$ export PATH=/Users/XXX/Documents/Development/flutter/bin:$PATH
+```
+
+これが出れば Flutter の環境構築は終わり。
+
+```shell
+flutter doctor
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel stable, 3.16.1, on macOS 13.6 22G120 darwin-arm64, locale ja-JP)
+[✓] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
+[✓] Xcode - develop for iOS and macOS (Xcode 15.0)
+[✓] Chrome - develop for the web
+[✓] Android Studio (version 2022.3)
+[✓] VS Code (version 1.84.2)
+[✓] Connected device (2 available)
+[✓] Network resources
+
+• No issues found!
+```
+
+## 参考サイト
+
+- https://stackoverflow.com/questions/50652071/flutter-command-not-found
