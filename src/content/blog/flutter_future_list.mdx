@@ -1,0 +1,111 @@
+---
+title: "FlutterでAPIから受け取ったデータリストを表示させる"
+author: miruoo
+description: "FlutterでAPIから受け取ったデータリストを表示させるメモ。FutureBuilderとListView.builderを組み合わせることで作成できます。"
+pubDate: 2023-12-05
+tags: ["flutter"]
+---
+
+Flutter で API から受け取ったデータについて、データ 1 つだけでなくリストだった場合どう書けばいいのかで少し悩んだので備忘録として残しておきます。
+
+今回記事で記載したアプリは[GitHub](https://github.com/miily8310s/flutter_api_basic)に転がしています。
+
+## 動作環境
+
+Macbook Pro M1 2020 / macOS 13.6
+
+## 今回使った API
+
+お馴染み JSONPlaceholder から`posts`API を使用しました。
+
+https://jsonplaceholder.typicode.com/posts
+
+## 手順
+
+### 1. リストの class と fetch メソッドを準備
+
+まず API から返却されるデータの class（今回だと`Post`クラス）を作成します。
+書き方については[ここ](https://docs.flutter.dev/cookbook/networking/fetch-data#create-an-album-class)を参考に API のレスポンスに合わせて作成すれば OK。
+
+fetch メソッドはこんな形で作成できます。
+
+```dart title="lib/main.dart"
+Future<List<Post>> fetchPosts() async {
+  final response =
+      await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+  final List<dynamic> jsonData = jsonDecode(response.body);
+  if (response.statusCode == 200) {
+    return jsonData.map((dynamic item) => Post.fromJson(item)).toList();
+  } else {
+    throw Exception('Failed to load Posts');
+  }
+}
+```
+
+### 2. アプリを立ち上げたときに state に API から返却されるリストをセットする
+
+表示する Widget が `StatefullWidget` になっていることを確認してから`State`に以下のコードを追加させます。
+
+state 値は非同期に代入させたいので、late に設定させています。
+そして[`initState`](https://api.flutter.dev/flutter/widgets/State/initState.html)イベントでアプリが立ち上がったタイミングで 1 で作成した fetch メソッドを使い、state 値 に API のレスポンスをセットさせます。
+これで state にレスポンスを持たせることが出来ました。
+
+```dart title="lib/main.dart"
+class _MyAppState extends State<MyApp> {
+  late Future<List<Post>> futurePosts;
+
+  @override
+  void initState() {
+    super.initState();
+    futurePosts = fetchPosts();
+  }
+  ...
+}
+```
+
+### 3. API から返却されるリストを画面に表示させる
+
+[FutureBuilder](https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html) Widget を使うことで API の読み込み中・読み込み完了時の処理を簡単に記載する事ができます。
+今回は、
+
+- API の読み込み中 -> [CircularProgressIndicator](https://api.flutter.dev/flutter/material/CircularProgressIndicator-class.html) Widget を使ってローディングを出しておく
+- API の読み込み完了 -> [ListView](https://api.flutter.dev/flutter/widgets/ListView-class.html) Widget で API で取ったリストを表示
+
+なお ListView での表示は、FutureBuilder から取れる`snapshot.data`に API から取得したリストが入っているため、これを使うことで実現できます。
+
+サンプルアプリではこんな感じで記載しました。
+
+```dart title="lib/main.dart"
+body: Center(
+  child: FutureBuilder(
+    future: futurePosts,
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.done) {
+        return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                  ),
+                  child: ListTile(
+                    title: Text(snapshot.data![index].title),
+                    subtitle: Text(snapshot.data![index].body),
+                  ),
+                ),
+              );
+            });
+      } else {
+        return const Center(child: CircularProgressIndicator());
+      }
+    },
+  ),
+)
+```
+
+## 参考サイト/動画
+
+- https://docs.flutter.dev/cookbook/networking/fetch-data
+- https://www.youtube.com/watch?v=MlvqmRXKXyo
