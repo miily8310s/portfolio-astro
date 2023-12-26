@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Container from '../../components/Container.astro';
-import BlogCard from "../../components/BlogCard.astro";
-import Pagination from "../../components/Pagination.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import BlogCard from "../components/BlogCard.astro";
+import Pagination from "../components/Pagination.astro";
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection("blog");
