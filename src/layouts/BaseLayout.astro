@@ -4,8 +4,10 @@ import Footer from '../components/Footer.astro';
 import { SEO } from "astro-seo"
 import { ViewTransitions } from "astro:transitions";
 
-const { pageTitle } = Astro.props
+const { pageTitle, pageDescription } = Astro.props
 const displayTitle = pageTitle ? `${pageTitle} | miruoo's Blog` : `miruoo's Blog`
+const ogpTitle = pageTitle ? `${pageTitle} | miruoo's Blog` : `miruoo's Blog - Web/Mobile Development tips`
+const displayDescription = pageDescription ? pageDescription : `miruoo's Blog is Blog site about Web/Mobile Development tips`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const resolvedImageWithDomain = new URL(
   "/miruoo's_blog.png",
@@ -21,19 +23,22 @@ const resolvedImageWithDomain = new URL(
 		<meta name="generator" content={Astro.generator} />
 		<SEO 
 		  title={displayTitle}
-			description="miruoo's Blog is Blog site about Web/Mobile Development tips"
+			description={displayDescription}
 			canonical={canonicalURL}
 			openGraph={
 			  {
 			  	basic: {
 			  		url: canonicalURL,
             type: "website",
-            title: `miruoo's Blog - Web/Mobile Development tips`,
+            title: ogpTitle,
 			  		image: resolvedImageWithDomain
 			  	},
 			  	image: {
 			  		alt: "miruoo's Blog Homepage Screenshot",
-			  	}
+			  	},
+					optional: {
+						description: displayDescription
+					}
 			  }
 			}
 		 />
