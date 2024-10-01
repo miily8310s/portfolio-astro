@@ -2,9 +2,6 @@
 title: "2023年の振り返りと来年の抱負"
 author: miruoo
 description: "2023年振り返りと2024年の抱負。"
-image:
-  url: "https://source.unsplash.com/woman-wearing-green-top-xFNHeIOxS80/960x480"
-  alt: "image of look back"
 pubDate: 2023-12-27
 tags: ["雑記"]
 ---

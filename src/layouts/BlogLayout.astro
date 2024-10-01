@@ -3,25 +3,14 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 import Container from '../components/Container.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { Image } from "astro:assets";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, image, tags } = Astro.props;
+const { title, description, pubDate, tags } = Astro.props;
 ---
 <BaseLayout pageTitle={title} pageDescription={description} >
   <Container>
     <article>
-      {
-        image && (
-          <div class="mb-8 block rounded-lg overflow-hidden">
-            <figure class="w-auto h-auto md:[480px] object-cover">
-              <Image src={image.url} alt={image.alt} width={960} height={480} decoding='async' loading='lazy'
-              class='transition duration-300 ease-in-out' />
-            </figure>
-          </div>
-        )
-      }
       <div class="md:col-10 text-center mb-12">
         <h1 class="text-md lg:text-xl font-bold dark:text-white">{title}</h1>
         <div class="mt-2 flex flex-wrap items-center justify-center text-zinc-800">
