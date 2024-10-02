@@ -1,7 +1,7 @@
 ---
 import ThemeIcon from "./ThemeIcon.astro";
 ---
-<header class="mx-auto max-w-screen-md px-3 py-6 flex flex-col gap-y-3 items-center justify-between sm:flex-row">
+<header class="mx-auto max-w-screen-md px-3 py-6 flex flex-row gap-y-3 items-center justify-between">
     <h1>
       <a href="/" class="text-lg font-bold text-slate-800 dark:text-zinc-200">miruoo's blog</a>
     </h1>
@@ -13,7 +13,7 @@ import ThemeIcon from "./ThemeIcon.astro";
         <li>
           <a href="/tags/" class="text-gray-600 dark:text-zinc-200 hover:text-gray-900">Tags</a>
         </li>
-        <li>
+        <li class="flex">
           <ThemeIcon />
         </li>
       </ul>
