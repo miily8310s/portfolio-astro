@@ -1,21 +1,21 @@
 ---
 import ThemeIcon from "./ThemeIcon.astro";
 ---
-<div class="mx-auto max-w-screen-md px-3 py-6">
-  <nav class="flex flex-col gap-y-3 sm:flex-row sm:items-center sm:justify-between">
-    <header role="banner">
+<header class="mx-auto max-w-screen-md px-3 py-6 flex flex-row gap-y-3 items-center justify-between">
+    <h1>
       <a href="/" class="text-lg font-bold text-slate-800 dark:text-zinc-200">miruoo's blog</a>
-    </header>
-    <ul class="flex gap-x-3 md:ml-auto" role="menubar">
-      <li role="menuitem">
-        <a href="/about/" class="text-gray-600 dark:text-zinc-200 hover:text-gray-900">About</a>
-      </li>
-      <li role="menuitem">
-        <a href="/tags/" class="text-gray-600 dark:text-zinc-200 hover:text-gray-900">Tags</a>
-      </li>
-      <li role="menuitem">
-        <ThemeIcon />
-      </li>
-    </ul>
-  </nav>
-</div>
+    </h1>
+    <nav>
+      <ul class="flex gap-x-3 items-center md:ml-auto">
+        <li>
+          <a href="/about/" class="text-gray-600 dark:text-zinc-200 hover:text-gray-900">About</a>
+        </li>
+        <li>
+          <a href="/tags/" class="text-gray-600 dark:text-zinc-200 hover:text-gray-900">Tags</a>
+        </li>
+        <li class="flex">
+          <ThemeIcon />
+        </li>
+      </ul>
+    </nav>
+</header>

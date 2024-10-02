@@ -2,9 +2,6 @@
 title: サイトを作成しました
 author: miruoo
 description: "ようやく自分のサイトを作成しました。"
-image:
-  url: "https://source.unsplash.com/person-holding-hello-sticker-SymZoeE8quA/960x480"
-  alt: "image of 'Hello!'."
 pubDate: 2023-10-26
 tags: ["雑記"]
 ---
