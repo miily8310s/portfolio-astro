@@ -2,7 +2,9 @@
 import Header from "../components/Header.astro";
 import Footer from '../components/Footer.astro';
 import { SEO } from "astro-seo"
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
+
+import "../styles/global.css";
 
 const { pageTitle, pageDescription } = Astro.props
 const displayTitle = pageTitle ? `${pageTitle} | miruoo's Blog` : `miruoo's Blog`
@@ -42,7 +44,7 @@ const resolvedImageWithDomain = new URL(
 			  }
 			}
 		 />
-		<ViewTransitions />
+		<ClientRouter />
 	</head>
 	<body class="bg-white dark:bg-zinc-900/95">
 		<Header />

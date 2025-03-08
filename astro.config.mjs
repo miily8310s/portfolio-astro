@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import astroExpressiveCode from "astro-expressive-code";
 
@@ -12,9 +12,8 @@ const astroExpressiveCodeOptions = {
 // https://astro.build/config
 export default defineConfig({
   site: "https://miruo-katanugu.com",
-  integrations: [
-    tailwind(),
-    astroExpressiveCode(astroExpressiveCodeOptions),
-    mdx(),
-  ],
+  integrations: [astroExpressiveCode(astroExpressiveCodeOptions), mdx()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
