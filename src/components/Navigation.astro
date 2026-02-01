@@ -47,6 +47,18 @@ const isActive = (path: string) => {
             Tags
           </a>
         </li>
+        <li>
+          <a 
+            href="/rss.xml" 
+            class:list={[
+              "px-3 py-2 rounded-md transition-all font-medium focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-2",
+              "text-gray-600 hover:text-blue-600 dark:text-zinc-200 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-zinc-800/50"
+            ]}
+            aria-current=undefined
+          >
+            RSS
+          </a>
+        </li>
         <li class="flex ml-2">
           <ThemeIcon />
         </li>
