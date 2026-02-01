@@ -5,6 +5,7 @@ description: "2023年振り返りと2024年の抱負。"
 pubDate: 2023-12-27
 tags: ["雑記"]
 ---
+import { LinkPreview } from "astro-embed";
 
 ## 2023 年の振り返り
 
@@ -17,11 +18,11 @@ Web の React と被る箇所は読めるのですが、サードパーティラ
 
 ちなみに学習サイトはここを見てた。
 
-https://swift.codelly.dev/
+<LinkPreview id="https://swift.codelly.dev/" />
 
 最近はネイティブ iOS の UIKit を知るため（React Native は UIKit の UI を使っている）にこのチュートリアルをやっている。メモを書き書きしながらゆっくり進めていて、今は終盤であと少しというところ。
 
-https://developer.apple.com/tutorials/app-dev-training
+<LinkPreview id="https://developer.apple.com/tutorials/app-dev-training" />
 
 ### Astro 始めた
 
@@ -31,7 +32,7 @@ Astro の強みはパフォーマンス周りや React とかいろんなフレ�
 
 あとまだベータ版だけど姉妹ライブラリの starlight にも注目していて、裏で色々試しながら読みやすいドキュメントサイトを目指して作ってたりする（来年には公開出来るようにしたいな。。）。
 
-https://starlight.astro.build/
+<LinkPreview id="https://starlight.astro.build/" />
 
 ### その他プライベートとか
 
@@ -51,9 +52,9 @@ Android もちゃんとやらないとなと思っているのですが、後述
 
 前職で数年ずっと Vue2 書いてきたせいか、useEffect とか標準の hooks のベスト/バッドプラクティスがまだ掴めてなくて、雰囲気で書いてしまっている感が否めない。Vue2 は hook というものがなくコンポーネント内にライフサイクルごとで定義する場所が決まっているので、それに倣えばよかったが、React は先述の useEffect が複数のライフサイクルを見る便利屋的な存在だったり、コンポーネントの外に書くことが出来たりで結構使い勝手が異なる。そんな感じで React らしさにまだ気づけていないので、まずは暇なときに以下のページを読んでおこうと思っている。
 
-https://nextjs.org/learn/react-foundations
+<LinkPreview id="https://nextjs.org/learn/react-foundations" />
 
-https://ja.react.dev/
+<LinkPreview id="https://ja.react.dev/" />
 
 噂の Server Components は React Native 関係ないし、これから時間をかけて色々固まってきそうな印象を受けるので数年はやらなくてもいいかな。。。と思っている。
 

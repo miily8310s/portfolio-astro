@@ -20,7 +20,7 @@ const { page } = Astro.props;
 <BaseLayout>
   <Container>
     <div class="mx-auto mb-6 grid grid-cols-1 gap-8">
-      {page.data.slice(0, 6).map((blog: any) => (
+      {page.data.map((blog: any) => (
         <BlogCard post={blog} />
       ))}
     </div>
