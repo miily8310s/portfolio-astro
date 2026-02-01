@@ -1,19 +1,53 @@
 ---
 import ThemeIcon from "./ThemeIcon.astro";
+
+const { pathname } = Astro.url;
+const isActive = (path: string) => {
+  if (path === '/') return pathname === '/' || pathname === '';
+  return pathname.startsWith(path);
+};
 ---
 <header class="mx-auto max-w-3xl px-3 py-6 flex flex-row gap-y-3 items-center justify-between">
     <h1>
-      <a href="/" class="text-lg font-bold text-slate-800 dark:text-zinc-200">miruoo's blog</a>
+      <a 
+        href="/" 
+        class="text-lg font-bold text-slate-800 dark:text-zinc-200 hover:text-blue-600 dark:hover:text-blue-400 focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-4 transition-colors p-1 -m-1 rounded"
+        aria-label="miruoo's blog - Home"
+      >
+        miruoo's blog
+      </a>
     </h1>
-    <nav>
-      <ul class="flex gap-x-3 items-center md:ml-auto">
+    <nav aria-label="Main navigation">
+      <ul class="flex gap-x-1 items-center md:ml-auto">
         <li>
-          <a href="/about/" class="text-gray-600 hover:text-gray-900 dark:text-zinc-200 dark:hover:text-zinc-400 transition-all">About</a>
+          <a 
+            href="/about/" 
+            class:list={[
+              "px-3 py-2 rounded-md transition-all font-medium focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-2",
+              isActive('/about/') 
+                ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 shadow-xs" 
+                : "text-gray-600 hover:text-blue-600 dark:text-zinc-200 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-zinc-800/50"
+            ]}
+            aria-current={isActive('/about/') ? "page" : undefined}
+          >
+            About
+          </a>
         </li>
         <li>
-          <a href="/tags/" class="text-gray-600 hover:text-gray-900 dark:text-zinc-200 dark:hover:text-zinc-400 transition-all">Tags</a>
+          <a 
+            href="/tags/" 
+            class:list={[
+              "px-3 py-2 rounded-md transition-all font-medium focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-2",
+              isActive('/tags/') 
+                ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 shadow-xs" 
+                : "text-gray-600 hover:text-blue-600 dark:text-zinc-200 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-zinc-800/50"
+            ]}
+            aria-current={isActive('/tags/') ? "page" : undefined}
+          >
+            Tags
+          </a>
         </li>
-        <li class="flex">
+        <li class="flex ml-2">
           <ThemeIcon />
         </li>
       </ul>

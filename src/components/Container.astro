@@ -2,6 +2,6 @@
 const { class: className } = Astro.props
 ---
 
-<main class:list={["mx-auto max-w-3xl px-5", className ]}>
+<main id="main-content" class:list={["mx-auto max-w-3xl px-5", className ]}>
   <slot />
 </main>

@@ -3,6 +3,7 @@ import Container from '../../components/Container.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
+<!-- TODO: もう少しデザイン検討を進めたい -->
 <BaseLayout pageTitle="About Me">
   <Container>
     <article class="max-w-3xl">
@@ -11,9 +12,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           About Me
         </h1>
         <div class="space-y-4">
-          <p class="text-xl md:text-2xl font-semibold text-gray-800 dark:text-zinc-100">
-            フロントエンド兼アプリエンジニアです。
-          </p>
           <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl">
             I'm a Japanese frontend engineer currently focusing on <span class="text-blue-600 dark:text-blue-400 font-medium">Next.js</span>, <span class="text-blue-600 dark:text-blue-400 font-medium">TypeScript</span>. I love building intuitive and beautiful user experiences.
           </p>
@@ -92,12 +90,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             Contact
           </h2>
           <div class="space-y-4">
-            <div class="flex items-center gap-3 text-lg">
-              <span class="text-gray-400 dark:text-gray-500">Email:</span>
-              <a href="mailto:miruoo.work@gmail.com" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline decoration-2 underline-offset-4">
-                miruoo.work@gmail.com
-              </a>
-            </div>
             <ul class="flex flex-wrap gap-4 pt-2">
               {[
                 { label: 'GitHub', url: 'https://github.com/miily8310s', icon: 'github' },
