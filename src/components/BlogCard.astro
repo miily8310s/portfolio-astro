@@ -9,10 +9,36 @@ interface Props {
 const { post } = Astro.props
 ---
 
-<article class="cursor dark:text-white border-dotted pb-2 border-b-2 border-sky-400 hover:opacity-70">
-  <a href={`/blog/${post.slug}`}>
-    <p class="font-semibold text-sm text-gray-500"><FormattedDate date={post.data.pubDate} /></p>
-    <h1 class="text-gray-900 dark:text-gray-200 font-semibold text-lg leading-tight">{post.data.title}</h1>
-    <p class="text-gray-700 dark:text-gray-200 leading-relaxed">{post.data.description}</p>
+<article class="group relative rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 p-6 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+  <a href={`/blog/${post.slug}`} class="block">
+    <div class="flex items-center gap-2 mb-3">
+      <time class="text-sm font-medium text-gray-500 dark:text-gray-400">
+        <FormattedDate date={post.data.pubDate} />
+      </time>
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div class="flex gap-1.5 ml-auto">
+          {post.data.tags.slice(0, 3).map((tag) => (
+            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+    
+    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight">
+      {post.data.title}
+    </h2>
+    
+    <p class="text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-2">
+      {post.data.description}
+    </p>
+    
+    <div class="mt-4 flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
+      Read more
+      <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </div>
   </a>
 </article>
