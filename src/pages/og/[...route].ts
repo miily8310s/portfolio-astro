@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 export const prerender = true;
 
 const posts = await getCollection("blog");
-const pages = Object.fromEntries(posts.map((post) => [post.slug, post]));
+const pages = Object.fromEntries(posts.map((post) => [post.id, post]));
 
 // @see https://www.hellobala.co/blog/creating-dynamic-og-images-in-astro
 export const { getStaticPaths, GET } = await OGImageRoute({
